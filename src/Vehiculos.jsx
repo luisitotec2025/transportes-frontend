@@ -4,7 +4,7 @@ function Vehiculos() {
   const [vehiculos, setVehiculos] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/vehiculos")
+      fetch("https://transportes-backend.onrender.com/vehiculos")
       .then((res) => res.json())
       .then((data) => {
         console.log("Vehículos recibidos en el frontend:", data); // 👈 revisa aquí
