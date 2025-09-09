@@ -22,20 +22,21 @@ function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch de vehículos
-  useEffect(() => {
-    const fetchVehiculos = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/vehiculos");
-        if (!response.ok) throw new Error("Error en la respuesta del servidor");
-        const data = await response.json();
-        setVehiculos(data);
-      } catch (error) {
-        console.error("Error cargando vehículos:", error);
-      }
-    };
-    fetchVehiculos();
-  }, []);
+// Fetch de vehículos
+useEffect(() => {
+  const fetchVehiculos = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/vehiculos`);
+      if (!response.ok) throw new Error("Error en la respuesta del servidor");
+      const data = await response.json();
+      setVehiculos(data);
+    } catch (error) {
+      console.error("Error cargando vehículos:", error);
+    }
+  };
+  fetchVehiculos();
+}, []);
+
 
   
 
