@@ -42,7 +42,7 @@ export default function HomePage() {
               Movemos tu mundo con confianza
             </p>
             <p className="mt-3 text-blue-600 font-semibold sm:text-lg md:text-xl">
-              📞 Para contrataciones, llame a los números
+              📞 SERVICIO 24/7 A TODO EL PAIS Para contrataciones, llame a los números
             </p>
           </div>
 
