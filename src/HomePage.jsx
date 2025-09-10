@@ -9,7 +9,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchVehiculos = async () => {
       try {
-        const res = await fetch("http://localhost:5000/vehiculos");
+        const res = await fetch("https://4d4e09013372.ngrok-free.app");
         const data = await res.json();
         setVehiculos(data);
       } catch (err) {

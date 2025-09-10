@@ -36,7 +36,7 @@ export default function AgregarVehiculo() {
       Object.keys(vehiculo).forEach((key) => formData.append(key, vehiculo[key]));
       if (imagenFile) formData.append("imagen", imagenFile);
 
-      const res = await fetch("http://localhost:5000/vehiculos", {
+      const res = await fetch("https://4d4e09013372.ngrok-free.app", {
         method: "POST",
         body: formData,
       });
