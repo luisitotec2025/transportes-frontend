@@ -36,16 +36,14 @@ export default function AgregarVehiculo() {
       Object.keys(vehiculo).forEach((key) => formData.append(key, vehiculo[key]));
       if (imagenFile) formData.append("imagen", imagenFile);
 
-      const res = await fetch("https://4d4e09013372.ngrok-free.app", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/vehiculos`, {
         method: "POST",
         body: formData,
       });
 
       const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data.error || "Error al guardar el vehículo");
-      }
+      if (!res.ok) throw new Error(data.error || "Error al guardar el vehículo");
 
       setMensaje("✅ Vehículo agregado exitosamente!");
       setVehiculo({

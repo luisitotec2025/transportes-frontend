@@ -1,4 +1,3 @@
-// src/HomePage.jsx
 import { useEffect, useState } from "react";
 import Formulario from "./Formulario.jsx";
 
@@ -9,7 +8,8 @@ export default function HomePage() {
   useEffect(() => {
     const fetchVehiculos = async () => {
       try {
-        const res = await fetch("https://4d4e09013372.ngrok-free.app");
+        // Usando variable de entorno para el backend
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/vehiculos`);
         const data = await res.json();
         setVehiculos(data);
       } catch (err) {

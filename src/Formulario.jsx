@@ -1,4 +1,3 @@
-// src/Formulario.jsx
 import { useState } from "react";
 
 export default function Formulario() {
@@ -10,12 +9,14 @@ export default function Formulario() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/contactos", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/contactos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nombre, email, mensaje }),
       });
+
       if (!res.ok) throw new Error("Error al enviar contacto");
+
       setEstado("✅ Mensaje enviado correctamente!");
       setNombre("");
       setEmail("");
@@ -27,13 +28,8 @@ export default function Formulario() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-lg mx-auto bg-white p-8 rounded-3xl shadow-2xl space-y-5"
-    >
-      <h3 className="text-2xl font-bold text-gray-800 text-center mb-4">
-        Contáctanos
-      </h3>
+    <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-8 rounded-3xl shadow-2xl space-y-5">
+      <h3 className="text-2xl font-bold text-gray-800 text-center mb-4">Contáctanos</h3>
 
       <input
         type="text"
@@ -58,7 +54,7 @@ export default function Formulario() {
         required
         rows="5"
         className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
-      ></textarea>
+      />
 
       <button
         type="submit"
@@ -67,9 +63,7 @@ export default function Formulario() {
         Enviar Mensaje
       </button>
 
-      {estado && (
-        <p className="text-center mt-3 font-medium text-gray-700">{estado}</p>
-      )}
+      {estado && <p className="text-center mt-3 font-medium text-gray-700">{estado}</p>}
     </form>
   );
 }
