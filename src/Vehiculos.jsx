@@ -3,15 +3,16 @@ import { useEffect, useState } from "react";
 function Vehiculos() {
   const [vehiculos, setVehiculos] = useState([]);
 
-  useEffect(() => {
-      fetch("https://transportes-backend.onrender.com/vehiculos")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Vehículos recibidos en el frontend:", data); // 👈 revisa aquí
-        setVehiculos(data);
-      })
-      .catch((err) => console.error("Error al cargar vehículos:", err));
-  }, []);
+useEffect(() => {
+  fetch(`${import.meta.env.VITE_API_URL}/vehiculos`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Vehículos recibidos en el frontend:", data);
+      setVehiculos(data);
+    })
+    .catch((err) => console.error("Error al cargar vehículos:", err));
+}, []);
+
 
   return (
     <section className="py-16 px-6 md:px-16 bg-gray-50">

@@ -1,9 +1,11 @@
+// src/Formulario.jsx
 import { useState } from "react";
 
-function Formulario() {
+export default function Formulario() {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [mensaje, setMensaje] = useState("");
+  const [estado, setEstado] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,66 +15,61 @@ function Formulario() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nombre, email, mensaje }),
       });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        alert("Mensaje enviado correctamente");
-        setNombre("");
-        setEmail("");
-        setMensaje("");
-      } else {
-        alert("Error al enviar el mensaje: " + data.message);
-      }
-    } catch (error) {
-      alert("Error al enviar el mensaje: " + error);
+      if (!res.ok) throw new Error("Error al enviar contacto");
+      setEstado("✅ Mensaje enviado correctamente!");
+      setNombre("");
+      setEmail("");
+      setMensaje("");
+    } catch (err) {
+      console.error(err);
+      setEstado("❌ Error al enviar mensaje.");
     }
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white rounded-2xl shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-        Formulario de Contacto
-      </h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-1 font-medium text-gray-700">Nombre:</label>
-          <input
-            type="text"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            required
-            className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-          />
-        </div>
-        <div>
-          <label className="block mb-1 font-medium text-gray-700">Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-          />
-        </div>
-        <div>
-          <label className="block mb-1 font-medium text-gray-700">Mensaje:</label>
-          <textarea
-            value={mensaje}
-            onChange={(e) => setMensaje(e.target.value)}
-            required
-            className="w-full border border-gray-300 rounded-lg p-2 h-32 focus:outline-none focus:ring-2 focus:ring-yellow-500 resize-none"
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-yellow-500 text-black font-semibold py-2 rounded-lg shadow hover:bg-yellow-400 transition"
-        >
-          Enviar
-        </button>
-      </form>
-    </div>
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-lg mx-auto bg-white p-8 rounded-3xl shadow-2xl space-y-5"
+    >
+      <h3 className="text-2xl font-bold text-gray-800 text-center mb-4">
+        Contáctanos
+      </h3>
+
+      <input
+        type="text"
+        placeholder="Nombre"
+        value={nombre}
+        onChange={(e) => setNombre(e.target.value)}
+        required
+        className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+      />
+      <textarea
+        placeholder="Mensaje"
+        value={mensaje}
+        onChange={(e) => setMensaje(e.target.value)}
+        required
+        rows="5"
+        className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+      ></textarea>
+
+      <button
+        type="submit"
+        className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-3 rounded-2xl shadow-lg transition duration-300"
+      >
+        Enviar Mensaje
+      </button>
+
+      {estado && (
+        <p className="text-center mt-3 font-medium text-gray-700">{estado}</p>
+      )}
+    </form>
   );
 }
-
-export default Formulario;

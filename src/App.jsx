@@ -1,9 +1,14 @@
-import HomePage from "./HomePage";
-import './index.css'; // o './tailwind.css' según como lo hayas llamado
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./HomePage.jsx";
+import AgregarVehiculo from "./AgregarVehiculo.jsx";
 
-
-function App() {
-  return <HomePage />;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/admin/vehiculos" element={<AgregarVehiculo />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App;
