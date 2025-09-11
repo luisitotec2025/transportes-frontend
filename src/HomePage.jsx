@@ -5,21 +5,21 @@ export default function HomePage() {
   const [vehiculos, setVehiculos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchVehiculos = async () => {
-      try {
-        // Usando variable de entorno para el backend
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/vehiculos`);
-        const data = await res.json();
-        setVehiculos(data);
-      } catch (err) {
-        console.error("Error fetch:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchVehiculos();
-  }, []);
+useEffect(() => {
+  const fetchVehiculos = async () => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/vehiculos`);
+      console.log("Respuesta cruda del fetch:", res);
+      const data = await res.json();
+      console.log("Datos JSON recibidos:", data);
+      setVehiculos(data);
+    } catch (err) {
+      console.error("Error fetch:", err);
+    }
+  };
+  fetchVehiculos();
+}, []);
+
 
   return (
     <div className="font-sans bg-gray-50 min-h-screen">
